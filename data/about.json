@@ -1,0 +1,41 @@
+{
+  "name": "Your Name",
+  "title": "Software Developer",
+  "email": "your.email@example.com",
+  "phone": "+91 00000 00000",
+  "location": "India",
+  "summary": "Passionate software developer with expertise in building modern web applications. I love solving complex problems and creating seamless user experiences.",
+  "skills": [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Node.js",
+    "JavaScript",
+    "HTML/CSS",
+    "Git",
+    "REST APIs"
+  ],
+  "experience": [
+    {
+      "id": "1",
+      "company": "Company Name",
+      "role": "Software Developer",
+      "duration": "2023 - Present",
+      "description": "Built and maintained web applications using React and Node.js. Collaborated with cross-functional teams to deliver high-quality products."
+    }
+  ],
+  "education": [
+    {
+      "id": "1",
+      "institution": "University Name",
+      "degree": "Bachelor of Technology",
+      "field": "Computer Science",
+      "year": "2023"
+    }
+  ],
+  "links": {
+    "github": "https://github.com/yourusername",
+    "linkedin": "https://linkedin.com/in/yourusername",
+    "portfolio": "https://yourportfolio.com"
+  }
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "1",
+    "question": "Tell me about yourself.",
+    "answer": "I am a passionate software developer with experience in building modern web applications. I specialize in React, Next.js, and Node.js. I enjoy solving complex problems and continuously learning new technologies. In my projects, I focus on clean code, performance, and great user experiences.",
+    "category": "HR",
+    "tags": [
+      "introduction",
+      "general"
+    ],
+    "difficulty": "easy",
+    "isFavorite": true,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "2",
+    "question": "What is the difference between useState and useReducer in React?",
+    "answer": "useState is best for simple, independent state values. useReducer is better when you have complex state logic that involves multiple sub-values or when the next state depends on the previous one. useReducer also makes it easier to test state transitions and centralizes state update logic.",
+    "category": "React",
+    "tags": [
+      "hooks",
+      "state management"
+    ],
+    "difficulty": "medium",
+    "isFavorite": true,
+    "createdAt": "2024-01-02T00:00:00Z",
+    "updatedAt": "2026-06-17T11:15:17.630Z"
+  },
+  {
+    "id": "3",
+    "question": "Explain the concept of closures in JavaScript.",
+    "answer": "A closure is a function that has access to variables from its outer (enclosing) scope even after the outer function has returned. Closures are created every time a function is created. They are useful for data privacy, factory functions, and maintaining state in async operations.",
+    "category": "JavaScript",
+    "tags": [
+      "closures",
+      "fundamentals"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-01-03T00:00:00Z",
+    "updatedAt": "2024-01-03T00:00:00Z"
+  }
+]
