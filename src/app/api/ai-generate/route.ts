@@ -20,8 +20,12 @@ export async function POST(req: NextRequest) {
 
     const genAI = new GoogleGenerativeAI(apiKey.trim());
 
-    // Try multiple models in order of preference
-    const modelNames = ['gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-flash-latest'];
+    // Use correct model names for Gemini free API
+    const modelNames = [
+      'gemini-1.5-flash',
+      'gemini-1.5-flash-8b',
+      'gemini-pro',
+    ];
     let answer = '';
     let lastError: unknown = null;
 

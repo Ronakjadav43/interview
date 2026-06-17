@@ -98,7 +98,7 @@ export default async function QuestionDetailPage({
                     .replace(/\*(.*?)\*/g, '<em>$1</em>')
                     .replace(/`(.*?)`/g, '<code>$1</code>')
                     .replace(/^- (.*)/gm, '<li>$1</li>')
-                    .replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>'),
+                    .replace(/(<li>[\s\S]*?<\/li>)/g, '<ul>$1</ul>'),
                 }}
               />
             </div>

@@ -168,7 +168,7 @@ export default function NewQuestionPage() {
                 <label className="text-xs text-muted-foreground">Category</label>
                 <Select
                   value={form.category}
-                  onValueChange={(v) => setForm((f) => ({ ...f, category: v }))}
+                  onValueChange={(v) => v && setForm((f) => ({ ...f, category: v }))}
                 >
                   <SelectTrigger className="bg-secondary/50 border-border/50">
                     <SelectValue />
@@ -186,7 +186,7 @@ export default function NewQuestionPage() {
                 <label className="text-xs text-muted-foreground">Difficulty</label>
                 <Select
                   value={form.difficulty}
-                  onValueChange={(v) => setForm((f) => ({ ...f, difficulty: v as any }))}
+                  onValueChange={(v) => v && setForm((f) => ({ ...f, difficulty: v as any }))}
                 >
                   <SelectTrigger className="bg-secondary/50 border-border/50">
                     <SelectValue />

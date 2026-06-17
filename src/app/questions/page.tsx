@@ -55,7 +55,9 @@ const FONT_SIZES = [
   { label: 'XL', questionSize: 'text-xl', answerSize: 'text-lg' },
 ];
 
-export default function QuestionsPage() {
+import { Suspense } from 'react';
+
+function QuestionsContent() {
   const searchParams = useSearchParams();
 
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -228,7 +230,7 @@ export default function QuestionsPage() {
             className="pl-9 bg-secondary/50 border-border/50"
           />
         </div>
-        <Select value={category} onValueChange={setCategory}>
+        <Select value={category} onValueChange={(v) => v && setCategory(v)}>
           <SelectTrigger className="w-full sm:w-44 bg-secondary/50 border-border/50">
             <SelectValue placeholder="Category" />
           </SelectTrigger>
@@ -238,7 +240,7 @@ export default function QuestionsPage() {
             ))}
           </SelectContent>
         </Select>
-        <Select value={difficulty} onValueChange={setDifficulty}>
+        <Select value={difficulty} onValueChange={(v) => v && setDifficulty(v)}>
           <SelectTrigger className="w-full sm:w-36 bg-secondary/50 border-border/50">
             <SelectValue placeholder="Difficulty" />
           </SelectTrigger>
@@ -429,5 +431,17 @@ export default function QuestionsPage() {
         </AlertDialogContent>
       </AlertDialog>
     </div>
+  );
+}
+
+export default function QuestionsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen p-4 sm:p-6 lg:p-8 pt-20 lg:pt-8 flex justify-center items-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    }>
+      <QuestionsContent />
+    </Suspense>
   );
 }

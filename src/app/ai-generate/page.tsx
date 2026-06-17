@@ -152,7 +152,7 @@ export default function AIGeneratePage() {
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1">
               <label className="text-xs text-muted-foreground">Category</label>
-              <Select value={category} onValueChange={setCategory}>
+              <Select value={category} onValueChange={(v) => v && setCategory(v)}>
                 <SelectTrigger className="bg-secondary/50 border-border/50 h-8 text-xs">
                   <SelectValue />
                 </SelectTrigger>

@@ -128,10 +128,8 @@ export function Sidebar() {
           <span className="font-bold text-sm gradient-text">Interview Prep</span>
         </div>
         <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-          <SheetTrigger asChild>
-            <Button variant="ghost" size="icon">
-              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </Button>
+          <SheetTrigger render={<Button variant="ghost" size="icon" />}>
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </SheetTrigger>
           <SheetContent side="left" className="w-[260px] p-0 bg-card border-border/50">
             <NavContent onClose={() => setMobileOpen(false)} />

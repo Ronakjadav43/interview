@@ -131,7 +131,7 @@ export default function PracticePage() {
 
       {/* Filters */}
       <div className="flex flex-wrap gap-3 mb-6 animate-fade-in" style={{ animationDelay: '60ms' }}>
-        <Select value={category} onValueChange={setCategory}>
+        <Select value={category} onValueChange={(v) => v && setCategory(v)}>
           <SelectTrigger className="w-40 bg-card border-border/50">
             <SelectValue placeholder="Category" />
           </SelectTrigger>
@@ -141,7 +141,7 @@ export default function PracticePage() {
             ))}
           </SelectContent>
         </Select>
-        <Select value={difficulty} onValueChange={setDifficulty}>
+        <Select value={difficulty} onValueChange={(v) => v && setDifficulty(v)}>
           <SelectTrigger className="w-36 bg-card border-border/50">
             <SelectValue />
           </SelectTrigger>
