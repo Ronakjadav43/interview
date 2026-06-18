@@ -26,6 +26,13 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import {
   Plus,
   Search,
   Star,
@@ -38,6 +45,7 @@ import {
   VolumeX,
   AArrowUp,
   AArrowDown,
+  Settings2,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -69,15 +77,48 @@ function QuestionsContent() {
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [fontSizeIdx, setFontSizeIdx] = useState(1); // default M
   const [speakingId, setSpeakingId] = useState<string | null>(null);
+  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
+  const [selectedVoiceURI, setSelectedVoiceURI] = useState<string>('');
+  const [ttsSpeed, setTtsSpeed] = useState<number>(1);
   const synthRef = useRef<SpeechSynthesis | null>(null);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      synthRef.current = window.speechSynthesis;
+      const synth = window.speechSynthesis;
+      synthRef.current = synth;
+
+      const loadVoices = () => {
+        const availableVoices = synth.getVoices();
+        if (availableVoices.length > 0) {
+          setVoices(availableVoices);
+          
+          // Try to auto-select a good female voice if none is selected
+          const savedURI = localStorage.getItem('q-tts-voice');
+          if (savedURI && availableVoices.some(v => v.voiceURI === savedURI)) {
+            setSelectedVoiceURI(savedURI);
+          } else {
+            const sweetVoice = availableVoices.find(v => 
+              v.name.includes('Female') || v.name.includes('Zira') || v.name.includes('Samantha') || v.name.includes('Google UK English Female')
+            );
+            setSelectedVoiceURI(sweetVoice ? sweetVoice.voiceURI : availableVoices[0]?.voiceURI || '');
+          }
+        }
+      };
+
+      loadVoices();
+      if (synth.onvoiceschanged !== undefined) {
+        synth.onvoiceschanged = loadVoices;
+      }
     }
+
     // Restore font size from localStorage
-    const saved = localStorage.getItem('q-font-size');
-    if (saved !== null) setFontSizeIdx(Number(saved));
+    const savedFs = localStorage.getItem('q-font-size');
+    if (savedFs !== null) setFontSizeIdx(Number(savedFs));
+
+    // Restore speed
+    const savedSpeed = localStorage.getItem('q-tts-speed');
+    if (savedSpeed !== null) setTtsSpeed(Number(savedSpeed));
+
     return () => {
       synthRef.current?.cancel();
     };
@@ -144,7 +185,14 @@ function QuestionsContent() {
     synth.cancel();
     const text = `Question: ${q.question}. Answer: ${q.answer}`;
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = 0.9;
+    
+    // Apply user settings
+    utterance.rate = ttsSpeed;
+    if (selectedVoiceURI) {
+      const voice = voices.find(v => v.voiceURI === selectedVoiceURI);
+      if (voice) utterance.voice = voice;
+    }
+    
     utterance.pitch = 1;
     utterance.lang = 'en-US';
     utterance.onend = () => setSpeakingId(null);
@@ -210,6 +258,65 @@ function QuestionsContent() {
             >
               <AArrowUp className="w-4 h-4" />
             </Button>
+            
+            {/* TTS Settings */}
+            <Dialog>
+              <DialogTrigger render={<Button variant="ghost" size="icon" className="h-8 w-8 hover:bg-primary/20 ml-1 border-l border-border/50 rounded-none pl-2" title="Voice Settings" />}>
+                <Settings2 className="w-4 h-4" />
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Voice Settings</DialogTitle>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Reading Speed</label>
+                    <Select 
+                      value={ttsSpeed.toString()} 
+                      onValueChange={(v) => {
+                        if (v) {
+                          const num = Number(v);
+                          setTtsSpeed(num);
+                          localStorage.setItem('q-tts-speed', v);
+                        }
+                      }}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select speed" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="0.75">Slow (0.75x)</SelectItem>
+                        <SelectItem value="1">Medium (1.0x)</SelectItem>
+                        <SelectItem value="1.25">High (1.25x)</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Voice (Boy/Girl)</label>
+                    <Select 
+                      value={selectedVoiceURI} 
+                      onValueChange={(v) => {
+                        if(v) {
+                          setSelectedVoiceURI(v);
+                          localStorage.setItem('q-tts-voice', v);
+                        }
+                      }}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a voice" />
+                      </SelectTrigger>
+                      <SelectContent className="max-h-[200px]">
+                        {voices.map(v => (
+                          <SelectItem key={v.voiceURI} value={v.voiceURI}>
+                            {v.name} ({v.lang})
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
           <Link href="/questions/new">
             <Button className="gap-2 shadow-lg shadow-primary/20">
