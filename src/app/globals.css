@@ -1,5 +1,7 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 @import "tw-animate-css";
+@import "react-quill-new/dist/quill.snow.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -132,15 +134,24 @@
 }
 
 /* Prose for answer display */
-.answer-prose { line-height: 1.8; font-size: 0.95rem; }
-.answer-prose p { margin-bottom: 0.75rem; }
-.answer-prose ul, .answer-prose ol { margin-left: 1.25rem; margin-bottom: 0.75rem; }
-.answer-prose li { margin-bottom: 0.25rem; }
+.answer-prose { line-height: 1.6; font-size: 0.95rem; }
+.answer-prose > :first-child { margin-top: 0 !important; }
+.answer-prose > :last-child { margin-bottom: 0 !important; }
+.answer-prose p { margin-top: 0.5em !important; margin-bottom: 0.5em !important; }
+.answer-prose ul, .answer-prose ol { margin-top: 0.25em !important; margin-bottom: 0.5em !important; padding-left: 1.2em !important; }
+.answer-prose li { margin-top: 0.1em !important; margin-bottom: 0.1em !important; padding-left: 0 !important; }
+.answer-prose li > p { margin-top: 0 !important; margin-bottom: 0 !important; display: inline-block; }
 .answer-prose strong { color: var(--primary); }
 .answer-prose code {
   background: var(--muted);
   padding: 0.1rem 0.3rem;
   border-radius: 0.25rem;
-  font-size: 0.875rem;
+  font-size: 0.85em;
   font-family: 'Fira Code', monospace;
+  color: var(--primary);
+}
+.answer-prose pre {
+  margin-top: 0.5em !important;
+  margin-bottom: 0.5em !important;
+  padding: 0.75em !important;
 }

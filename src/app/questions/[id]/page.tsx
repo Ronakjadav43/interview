@@ -91,15 +91,8 @@ export default async function QuestionDetailPage({
             </div>
             <div className="flex-1 min-w-0">
               <div
-                className="answer-prose text-foreground/90 whitespace-pre-wrap"
-                dangerouslySetInnerHTML={{
-                  __html: question.answer
-                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                    .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                    .replace(/`(.*?)`/g, '<code>$1</code>')
-                    .replace(/^- (.*)/gm, '<li>$1</li>')
-                    .replace(/(<li>[\s\S]*?<\/li>)/g, '<ul>$1</ul>'),
-                }}
+                className="prose dark:prose-invert max-w-none prose-sm sm:prose-base answer-prose text-foreground/90"
+                dangerouslySetInnerHTML={{ __html: question.answer }}
               />
             </div>
           </div>

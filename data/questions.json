@@ -1,44 +1,1203 @@
 [
   {
     "id": "1",
-    "question": "Tell me about yourself.",
-    "answer": "I am a passionate software developer with experience in building modern web applications. I specialize in React, Next.js, and Node.js. I enjoy solving complex problems and continuously learning new technologies. In my projects, I focus on clean code, performance, and great user experiences.",
-    "category": "HR",
+    "question": "How would you architect a scalable SaaS dashboard application?",
+    "answer": "<p>For a scalable SaaS dashboard, I would divide the architecture into clear layers:</p><p>1. Frontend layer<br/><ul><li>Next.js or React for the UI.</li></ul><br/><ul><li>Component-based architecture.</li></ul><br/><ul><li>Role-based views for admin, manager, and end users.</li></ul><br/><ul><li>React Query for server-state caching.</li></ul><br/><ul><li>Redux or Context only for complex client-side global state.</li></ul></p><p>2. Backend layer<br/><ul><li>Node.js with Express or Next.js API routes for business logic.</li></ul><br/><ul><li>REST APIs with proper route versioning.</li></ul><br/><ul><li>Authentication and authorization using JWT/session-based auth.</li></ul><br/><ul><li>Middleware for validation, logging, rate limiting, and error handling.</li></ul></p><p>3. Database layer<br/><ul><li>PostgreSQL for relational SaaS data such as users, organizations, subscriptions, permissions, and transactions.</li></ul><br/><ul><li>MongoDB only when document flexibility is needed, such as dynamic form templates or event logs.</li></ul></p><p>4. Infrastructure<br/><ul><li>Dockerized services.</li></ul><br/><ul><li>CI/CD pipeline.</li></ul><br/><ul><li>AWS/VPS deployment.</li></ul><br/><ul><li>Monitoring, logging, backup, and alerting.</li></ul></p><p>Example:<br/>For an analytics dashboard, I would design tables like: organizations, users, roles, dashboards, widgets, metrics, audit_logs. Each query would be filtered by organization_id to support multi-tenancy.</p><p>Tricky follow-up:<br/>Question: How do you prevent one tenant from accessing another tenant’s data?<br/>Answer:<br/>I would enforce tenant isolation at multiple levels:<br/><ul><li>Add organization_id to tenant-owned tables.</li></ul><br/><ul><li>Validate tenant ownership in every backend query.</li></ul><br/><ul><li>Avoid trusting frontend filters.</li></ul><br/><ul><li>Use database-level row-level security if needed.</li></ul><br/><ul><li>Add automated tests for cross-tenant access.</li></ul><br/><ul><li>Log suspicious access attempts.</li></ul></p>",
+    "category": "Core Full-Stack / Architecture",
     "tags": [
-      "introduction",
-      "general"
+      "architecture",
+      "saas",
+      "dashboard",
+      "scalability"
     ],
-    "difficulty": "easy",
-    "isFavorite": true,
-    "createdAt": "2024-01-01T00:00:00Z",
-    "updatedAt": "2024-01-01T00:00:00Z"
+    "difficulty": "hard",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
   },
   {
     "id": "2",
-    "question": "What is the difference between useState and useReducer in React?",
-    "answer": "useState is best for simple, independent state values. useReducer is better when you have complex state logic that involves multiple sub-values or when the next state depends on the previous one. useReducer also makes it easier to test state transitions and centralizes state update logic.",
-    "category": "React",
+    "question": "What is the difference between full-stack development and just frontend/backend development?",
+    "answer": "<p>Frontend development focuses on user interface, user experience, client-side state, browser performance, accessibility, and API integration.</p><p>Backend development focuses on APIs, database design, authentication, authorization, business rules, security, and system reliability.</p><p>Full-stack development connects both sides. A full-stack engineer should understand:<br/><ul><li>How UI decisions affect API design.</li></ul><br/><ul><li>How database structure affects frontend performance.</li></ul><br/><ul><li>How authentication flows work end-to-end.</li></ul><br/><ul><li>How to debug issues across browser, API, database, and deployment layers.</li></ul></p><p>Example:<br/>If a dashboard page loads slowly, a frontend-only developer may optimize rendering. A backend-only developer may optimize queries. A full-stack developer checks the complete path:<br/>Browser rendering → API latency → database query → indexes → payload size → caching</p>",
+    "category": "Core Full-Stack / Architecture",
     "tags": [
-      "hooks",
-      "state management"
+      "full-stack",
+      "frontend",
+      "backend"
     ],
-    "difficulty": "medium",
-    "isFavorite": true,
-    "createdAt": "2024-01-02T00:00:00Z",
-    "updatedAt": "2026-06-17T11:15:17.630Z"
+    "difficulty": "easy",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
   },
   {
     "id": "3",
-    "question": "Explain the concept of closures in JavaScript.",
-    "answer": "A closure is a function that has access to variables from its outer (enclosing) scope even after the outer function has returned. Closures are created every time a function is created. They are useful for data privacy, factory functions, and maintaining state in async operations.",
-    "category": "JavaScript",
+    "question": "How do you decide between monolith, modular monolith, and microservices?",
+    "answer": "<p>For most early-stage SaaS or business applications, I prefer a modular monolith.</p><p>Architecture | Best For | Risk<br/>--- | --- | ---<br/>Monolith | Small apps, fast MVP | Can become tightly coupled<br/>Modular monolith | Growing SaaS apps | Requires discipline<br/>Microservices | Large teams, independent scaling | Operational complexity</p><p>Example:<br/>For a task management SaaS, I would start with modules: auth module, project module, task module, notification module, billing module, reporting module. They can live in one codebase initially. Later, if notifications or reporting needs independent scaling, it can be extracted.</p><p>Tricky follow-up:<br/>Question: Why not start with microservices directly?<br/>Answer:<br/>Because microservices introduce distributed tracing, network failure, data consistency problems, deployment complexity, and higher DevOps cost. Unless the team and traffic justify it, microservices can slow development instead of improving scalability.</p>",
+    "category": "Core Full-Stack / Architecture",
     "tags": [
-      "closures",
-      "fundamentals"
+      "architecture",
+      "monolith",
+      "microservices"
     ],
     "difficulty": "medium",
     "isFavorite": false,
-    "createdAt": "2024-01-03T00:00:00Z",
-    "updatedAt": "2024-01-03T00:00:00Z"
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "4",
+    "question": "What does “scalable web application” mean to you?",
+    "answer": "<p>A scalable web application can handle growth in:<br/><ul><li>Users</li></ul><br/><ul><li>Data volume</li></ul><br/><ul><li>API traffic</li></ul><br/><ul><li>Feature complexity</li></ul><br/><ul><li>Team size</li></ul><br/><ul><li>Deployment frequency</li></ul></p><p>Scalability is not only server capacity. It includes maintainable code, reusable components, efficient database queries, caching, background jobs, and clear architecture.</p><p>Example:<br/>A dashboard with 100 users may work with simple queries. At 100,000 users, I need:<br/><ul><li>Pagination</li></ul><br/><ul><li>Indexes</li></ul><br/><ul><li>API caching</li></ul><br/><ul><li>Query optimization</li></ul><br/><ul><li>Lazy loading</li></ul><br/><ul><li>Data aggregation</li></ul><br/><ul><li>Background processing</li></ul><br/><ul><li>CDN/static asset optimization</li></ul></p>",
+    "category": "Core Full-Stack / Architecture",
+    "tags": [
+      "scalability",
+      "architecture"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "5",
+    "question": "How do you approach enterprise application development?",
+    "answer": "<p>Enterprise applications need more discipline than small apps. I focus on:<br/>1. Role-based access control<br/>2. Audit logs<br/>3. Data validation<br/>4. Workflow states<br/>5. Reporting<br/>6. Security<br/>7. Performance<br/>8. Maintainable architecture<br/>9. Documentation<br/>10. Permission-based UI</p><p>Example:<br/>For an HR/payroll system, a normal employee may view leave balance, HR can approve leave, and finance can process payroll. The frontend should hide unauthorized actions, but the backend must still enforce permissions.</p>",
+    "category": "Core Full-Stack / Architecture",
+    "tags": [
+      "enterprise",
+      "architecture",
+      "security"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "6",
+    "question": "How does React rendering work?",
+    "answer": "<p>React renders UI based on component state and props. When state changes, React re-renders the affected component tree, compares the new virtual representation with the previous one, and updates the DOM efficiently.</p><p>Important points:<br/><ul><li>State change triggers render.</li></ul><br/><ul><li>Parent render can trigger child render.</li></ul><br/><ul><li>Rendering does not always mean DOM update.</li></ul><br/><ul><li>Expensive rendering can be optimized with memoization, splitting components, or moving state down.</li></ul></p><p>Example:<br/><code>const [search, setSearch] = useState(\"\");</code><br/><code>return <SearchInput value={search} onChange={setSearch} />;</code><br/>Every search update re-renders the parent component. If the parent contains a heavy table, I would isolate the search input or memoize the table.</p>",
+    "category": "React.js / Frontend",
+    "tags": [
+      "react",
+      "rendering",
+      "performance"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "7",
+    "question": "When should you use useEffect?",
+    "answer": "<p>useEffect should be used for side effects, not for normal data transformation.</p><p>Good use cases:<br/><ul><li>Fetching data when a component mounts.</li></ul><br/><ul><li>Subscribing/unsubscribing to events.</li></ul><br/><ul><li>Syncing with browser APIs.</li></ul><br/><ul><li>Updating document title.</li></ul><br/><ul><li>Handling timers.</li></ul></p><p>Bad use cases:<br/><ul><li>Deriving state from props unnecessarily.</li></ul><br/><ul><li>Formatting data that can be calculated during render.</li></ul><br/><ul><li>Triggering complex state chains.</li></ul></p><p>Example of bad usage:<br/><code></code>`javascript<br/>useEffect(() => {<br/>  setFullName(firstName + \" \" + lastName);<br/>}, [firstName, lastName]);<br/><code></code>`<br/>Better:<br/><code></code>`javascript<br/>const fullName = <code>${firstName} ${lastName}</code>;<br/><code></code>`</p><p>Tricky follow-up:<br/>Question: Why can excessive useEffect cause bugs?<br/>Answer:<br/>Because it can create unnecessary renders, stale closures, race conditions, and hard-to-follow state synchronization.</p>",
+    "category": "React.js / Frontend",
+    "tags": [
+      "react",
+      "hooks",
+      "useEffect"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "8",
+    "question": "What is the difference between useMemo and useCallback?",
+    "answer": "<p>useMemo: Memoizes a calculated value.<br/>useCallback: Memoizes a function reference.</p><p>React documentation describes useMemo as a way to cache expensive calculations and useCallback as a way to cache function definitions, especially when passing callbacks into optimized child components.</p><p>Example:<br/><code></code>`javascript<br/>const filteredUsers = useMemo(() => {<br/>  return users.filter(user => user.active);<br/>}, [users]);</p><p>const handleSelect = useCallback((id: string) => {<br/>  setSelectedUser(id);<br/>}, []);<br/><code></code>`</p><p>Tricky follow-up:<br/>Question: Should you use useMemo everywhere?<br/>Answer:<br/>No. Memoization has its own cost. I use it only when:<br/><ul><li>The calculation is expensive.</li></ul><br/><ul><li>The component re-renders frequently.</li></ul><br/><ul><li>The memoized value prevents unnecessary child renders.</li></ul><br/><ul><li>Profiling shows a real performance issue.</li></ul></p>",
+    "category": "React.js / Frontend",
+    "tags": [
+      "react",
+      "hooks",
+      "performance",
+      "useMemo",
+      "useCallback"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "9",
+    "question": "When would you use Redux instead of React Context?",
+    "answer": "<p>I use React Context for simple global values like theme, locale, or authenticated user.</p><p>I use Redux when the application has:<br/><ul><li>Complex global state</li></ul><br/><ul><li>Many state transitions</li></ul><br/><ul><li>Debugging needs</li></ul><br/><ul><li>Cross-feature state sharing</li></ul><br/><ul><li>Predictable state updates</li></ul><br/><ul><li>Middleware requirements</li></ul><br/><ul><li>Time-travel debugging or advanced tooling</li></ul></p><p>Redux Toolkit is the recommended modern Redux approach. It uses configureStore and createSlice to reduce boilerplate and improve default setup.</p><p>Example:<br/>For a dashboard builder where users add widgets, change filters, save layouts, undo changes, and share dashboards, Redux is more suitable than simple Context.</p>",
+    "category": "React.js / Frontend",
+    "tags": [
+      "react",
+      "redux",
+      "context",
+      "state management"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "10",
+    "question": "What is React Query, and how is it different from Redux?",
+    "answer": "<p>React Query, now TanStack Query, manages server state: data fetched from APIs.<br/>Redux manages client state: UI state, local workflows, temporary app state.</p><p>TanStack Query handles caching, request deduplication, background refetching, stale data, pagination, and server-state synchronization.</p><p>Example:<br/><code></code>`javascript<br/>const { data, isLoading } = useQuery({<br/>  queryKey: [\"users\"],<br/>  queryFn: fetchUsers<br/>});<br/><code></code>`<br/>Use React Query for: API data, Caching, Pagination, Mutations, Optimistic updates.<br/>Use Redux for: Dashboard layout state, Multi-step wizard state, Complex UI workflows, Client-side filters that do not need server sync.</p>",
+    "category": "React.js / Frontend",
+    "tags": [
+      "react",
+      "react query",
+      "redux",
+      "state management"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "11",
+    "question": "How would you implement optimistic updates with React Query?",
+    "answer": "<p>Optimistic updates immediately update the UI before the server confirms the change.</p><p>Process:<br/>1. Cancel outgoing queries.<br/>2. Snapshot previous data.<br/>3. Update cache optimistically.<br/>4. Call mutation API.<br/>5. Roll back on error.<br/>6. Invalidate/refetch on success or settle.</p><p>Example:<br/>When a user marks a task as done, I update the UI instantly. If the API fails, I revert the task status.</p><p>Tricky follow-up:<br/>Question: What can go wrong with optimistic updates?<br/>Answer:<br/><ul><li>Server may reject the update.</li></ul><br/><ul><li>Multiple optimistic updates may conflict.</li></ul><br/><ul><li>Cache may become inconsistent.</li></ul><br/><ul><li>User may see temporary incorrect data.</li></ul><br/><ul><li>Rollback logic may be incomplete.</li></ul></p>",
+    "category": "React.js / Frontend",
+    "tags": [
+      "react",
+      "react query",
+      "optimistic updates"
+    ],
+    "difficulty": "hard",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "12",
+    "question": "How do you structure a large React application?",
+    "answer": "<p>I prefer feature-based architecture.</p><p><code>src/</code><br/>  <code>app/</code><br/>  <code>features/</code><br/>    <code>auth/</code><br/>    <code>dashboard/</code><br/>    <code>projects/</code><br/>    <code>tasks/</code><br/>    <code>reports/</code><br/>  <code>components/</code><br/>    <code>ui/</code><br/>    <code>layout/</code><br/>  <code>hooks/</code><br/>  <code>services/</code><br/>  <code>lib/</code><br/>  <code>types/</code><br/>  <code>utils/</code></p><p>Each feature can contain: components, hooks, api, types, utils, tests.<br/>This makes the app easier to scale compared to separating everything by technical type only.</p>",
+    "category": "React.js / Frontend",
+    "tags": [
+      "react",
+      "architecture",
+      "folder structure"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "13",
+    "question": "What is component-based architecture?",
+    "answer": "<p>Component-based architecture means breaking UI into reusable, isolated, testable units.</p><p>Good components are:<br/><ul><li>Reusable</li></ul><br/><ul><li>Composable</li></ul><br/><ul><li>Accessible</li></ul><br/><ul><li>Controlled through props</li></ul><br/><ul><li>Not tightly coupled to business logic</li></ul><br/><ul><li>Easy to test</li></ul></p><p>Example:<br/><code></code>`jsx<br/><DataTable<br/>  columns={columns}<br/>  data={users}<br/>  isLoading={isLoading}<br/>  onRowClick={handleRowClick}<br/>/><br/><code></code>`<br/>A well-designed DataTable can be reused for users, projects, invoices, and reports.</p>",
+    "category": "React.js / Frontend",
+    "tags": [
+      "react",
+      "architecture",
+      "components"
+    ],
+    "difficulty": "easy",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "14",
+    "question": "What is the difference between controlled and uncontrolled components?",
+    "answer": "<p>Controlled: Data Managed By React state. Use Case: Dynamic validation, dependent fields.<br/>Uncontrolled: Data Managed By DOM/ref. Use Case: Simple forms, performance-sensitive forms.</p><p>Controlled example:<br/><code><input value={email} onChange={e => setEmail(e.target.value)} /></code></p><p>Uncontrolled example:<br/><code>const inputRef = useRef<HTMLInputElement>(null);</code></p><p>For enterprise forms, I usually prefer controlled or form-library-based approaches because validation and business rules are easier to manage.</p>",
+    "category": "React.js / Frontend",
+    "tags": [
+      "react",
+      "forms",
+      "controlled components"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "15",
+    "question": "Why use Next.js instead of plain React?",
+    "answer": "<p>Next.js adds production-grade capabilities on top of React:<br/><ul><li>File-based routing</li></ul><br/><ul><li>Server-side rendering</li></ul><br/><ul><li>Static generation</li></ul><br/><ul><li>API routes / route handlers</li></ul><br/><ul><li>Server components</li></ul><br/><ul><li>Image optimization</li></ul><br/><ul><li>SEO support</li></ul><br/><ul><li>Middleware</li></ul><br/><ul><li>Caching and revalidation</li></ul><br/><ul><li>Deployment-friendly structure</li></ul></p><p>Example:<br/>For a SaaS marketing site plus dashboard, I can use:<br/><ul><li>Static/server-rendered pages for marketing and SEO.</li></ul><br/><ul><li>Client-heavy pages for dashboard interactions.</li></ul><br/><ul><li>API routes for lightweight backend logic.</li></ul></p>",
+    "category": "Next.js",
+    "tags": [
+      "next.js",
+      "react",
+      "ssr",
+      "ssg"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "16",
+    "question": "Explain Server Components vs Client Components in Next.js.",
+    "answer": "<p>Server Component: Runs On Server. Best For Fetching data, secure logic, static UI.<br/>Client Component: Runs On Browser. Best For Interactivity, hooks, event handlers.</p><p>Server Components reduce client-side JavaScript and can access backend resources more safely. Client Components are needed for state, effects, browser APIs, and user interactions.</p><p>Example:<br/><code></code>`jsx<br/>// Server Component<br/>export default async function Page() {<br/>  const users = await getUsers();<br/>  return <UserList users={users} />;<br/>}</p><p>\"use client\";<br/>export function SearchBox() {<br/>  const [query, setQuery] = useState(\"\");<br/>  return <input value={query} onChange={e => setQuery(e.target.value)} />;<br/>}<br/><code></code>`</p>",
+    "category": "Next.js",
+    "tags": [
+      "next.js",
+      "server components",
+      "client components"
+    ],
+    "difficulty": "hard",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "17",
+    "question": "How does caching work in Next.js App Router?",
+    "answer": "<p>Next.js caching depends on how data is fetched and how the route is configured. An important current interview point is that Route Handlers are not cached by default, but GET handlers can opt into caching with configuration such as <code>force-static</code>.</p><p>Example:<br/><code></code>`javascript<br/>export const dynamic = \"force-static\";<br/>export async function GET() {<br/>  return Response.json({ status: \"ok\" });<br/>}<br/><code></code>`</p><p>Tricky follow-up:<br/>Question: Why is caching tricky in dashboards?<br/>Answer:<br/>Dashboards often contain user-specific, permission-specific, and frequently changing data. Aggressive caching can show stale or unauthorized data. I would carefully separate:<br/><ul><li>Public static data</li></ul><br/><ul><li>User-specific data</li></ul><br/><ul><li>Real-time metrics</li></ul><br/><ul><li>Admin-only data</li></ul></p>",
+    "category": "Next.js",
+    "tags": [
+      "next.js",
+      "caching",
+      "app router"
+    ],
+    "difficulty": "hard",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "18",
+    "question": "When would you use Next.js API routes versus a separate Node.js backend?",
+    "answer": "<p>Use Next.js route handlers/API routes when:<br/><ul><li>The backend logic is small.</li></ul><br/><ul><li>You need simple CRUD.</li></ul><br/><ul><li>You are building a small SaaS/MVP.</li></ul><br/><ul><li>The frontend and backend are tightly connected.</li></ul></p><p>Use a separate Node.js backend when:<br/><ul><li>Business logic is complex.</li></ul><br/><ul><li>Multiple clients consume the API.</li></ul><br/><ul><li>Background jobs are needed.</li></ul><br/><ul><li>Webhooks, queues, or microservices are involved.</li></ul><br/><ul><li>Independent deployment/scaling is required.</li></ul></p><p>Example:<br/>A portfolio site contact form can use Next.js route handlers.<br/>A SaaS analytics platform with billing, reporting, role permissions, and integrations may need a dedicated backend.</p>",
+    "category": "Next.js",
+    "tags": [
+      "next.js",
+      "api routes",
+      "backend",
+      "architecture"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "19",
+    "question": "Explain JavaScript promises and async/await.",
+    "answer": "<p>A Promise represents the eventual success or failure of an asynchronous operation.<br/>async/await provides cleaner syntax for working with promises. MDN describes a Promise as representing the eventual completion or failure of an async operation.</p><p>Example:<br/><code></code>`javascript<br/>async function getUsers() {<br/>  try {<br/>    const response = await fetch(\"/api/users\");<br/>    return await response.json();<br/>  } catch (error) {<br/>    console.error(error);<br/>  }<br/>}<br/><code></code>`</p><p>Tricky follow-up:<br/>Question: What is wrong with this? <code>users.map(async user => await sendEmail(user));</code><br/>Answer:<br/>map returns an array of promises, but it does not wait for them. Use: <code>await Promise.all(users.map(user => sendEmail(user)));</code></p>",
+    "category": "JavaScript / TypeScript",
+    "tags": [
+      "javascript",
+      "async",
+      "promises"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "20",
+    "question": "What is the JavaScript event loop?",
+    "answer": "<p>The event loop allows JavaScript/Node.js to handle asynchronous work without blocking the main thread. Node.js documentation explains that the event loop enables non-blocking I/O even though JavaScript uses a single thread by default.</p><p>Example:<br/>A Node.js server can accept multiple requests while waiting for database responses because the I/O is asynchronous.</p><p>Tricky follow-up:<br/>Question: Is Node.js good for CPU-heavy tasks?<br/>Answer:<br/>Not by default. Node.js is excellent for I/O-heavy tasks, but CPU-heavy tasks can block the event loop. For CPU-heavy work, I would use worker threads, queues, separate services, or offload processing.</p>",
+    "category": "JavaScript / TypeScript",
+    "tags": [
+      "javascript",
+      "node.js",
+      "event loop",
+      "performance"
+    ],
+    "difficulty": "hard",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "21",
+    "question": "Why use TypeScript in a large application?",
+    "answer": "<p>TypeScript improves maintainability by catching type errors during development.</p><p>Benefits:<br/><ul><li>Safer refactoring</li></ul><br/><ul><li>Better IDE support</li></ul><br/><ul><li>Clear API contracts</li></ul><br/><ul><li>Reduced runtime bugs</li></ul><br/><ul><li>Better collaboration</li></ul><br/><ul><li>Stronger domain modeling</li></ul></p><p>Example:<br/><code></code>`typescript<br/>type UserRole = \"admin\" | \"manager\" | \"viewer\";<br/>interface User {<br/>  id: string;<br/>  name: string;<br/>  role: UserRole;<br/>}<br/><code></code>`<br/>This prevents invalid roles like \"super-user\" unless explicitly allowed.</p>",
+    "category": "JavaScript / TypeScript",
+    "tags": [
+      "typescript",
+      "maintainability"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "22",
+    "question": "Explain TypeScript generics.",
+    "answer": "<p>Generics allow reusable components/functions while preserving type safety. The TypeScript handbook treats generics as a core pattern for creating reusable typed code.</p><p>Example:<br/><code></code>`typescript<br/>function getFirstItem<T>(items: T[]): T {<br/>  return items[0];<br/>}<br/>const firstUser = getFirstItem<User>(users);<br/><code></code>`</p><p>Advanced example:<br/><code></code>`typescript<br/>interface ApiResponse<T> {<br/>  data: T;<br/>  message: string;<br/>  success: boolean;<br/>}<br/>// Now I can use:<br/>// ApiResponse<User[]><br/>// ApiResponse<Project><br/><code></code>`</p>",
+    "category": "JavaScript / TypeScript",
+    "tags": [
+      "typescript",
+      "generics"
+    ],
+    "difficulty": "hard",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "23",
+    "question": "What are TypeScript utility types?",
+    "answer": "<p>Utility types help transform existing types. TypeScript provides utility types globally for common transformations.</p><p>Examples:<br/><code>Partial<User></code><br/><code>Pick<User, \"id\" | \"name\"></code><br/><code>Omit<User, \"password\"></code><br/><code>Record<string, number></code><br/><code>Readonly<User></code></p><p>Example use case:<br/><code>type CreateUserPayload = Omit<User, \"id\" | \"createdAt\">;</code><br/><code>type UpdateUserPayload = Partial<CreateUserPayload>;</code></p>",
+    "category": "JavaScript / TypeScript",
+    "tags": [
+      "typescript",
+      "utility types"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "24",
+    "question": "What is type narrowing?",
+    "answer": "<p>Type narrowing means reducing a broad type into a more specific type based on runtime checks.</p><p>Example:<br/><code></code>`typescript<br/>function printId(id: string | number) {<br/>  if (typeof id === \"string\") {<br/>    console.log(id.toUpperCase());<br/>  } else {<br/>    console.log(id.toFixed(2));<br/>  }<br/>}<br/><code></code>`<br/>TypeScript understands that inside the first block, <code>id</code> is a string, and inside the second block, it is a number.</p>",
+    "category": "JavaScript / TypeScript",
+    "tags": [
+      "typescript",
+      "type narrowing"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "25",
+    "question": "How do you make a web application responsive?",
+    "answer": "<p>I use a mobile-first approach:<br/>1. Start with small screens.<br/>2. Use flexible layouts.<br/>3. Use CSS Grid/Flexbox.<br/>4. Use responsive typography.<br/>5. Optimize touch targets.<br/>6. Test breakpoints.<br/>7. Avoid fixed widths.<br/>8. Use progressive enhancement.</p><p>Tailwind supports conditional utility classes at breakpoints, while Bootstrap provides a responsive grid system built around containers, rows, and columns.</p><p>Example with Tailwind:<br/><code><div class=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4\"></code></p>",
+    "category": "HTML, CSS, Tailwind, MUI, Bootstrap",
+    "tags": [
+      "css",
+      "responsive design",
+      "tailwind",
+      "ui"
+    ],
+    "difficulty": "easy",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "26",
+    "question": "Tailwind CSS vs Material UI vs Bootstrap — when would you choose each?",
+    "answer": "<p>Tailwind CSS: Best for Custom UI, fast styling, design-system flexibility.<br/>Material UI: Best for Enterprise dashboards, admin panels, ready components.<br/>Bootstrap: Best for Quick responsive layouts, simple websites, legacy-friendly projects.</p><p>Example:<br/>For an analytics dashboard, I may use Material UI because tables, dialogs, forms, menus, and theming are already strong. Material UI’s theming system allows customization of colors, typography, shadows, and component behavior.<br/>For a custom SaaS marketing page, Tailwind gives more visual freedom.</p>",
+    "category": "HTML, CSS, Tailwind, MUI, Bootstrap",
+    "tags": [
+      "css frameworks",
+      "tailwind",
+      "mui",
+      "bootstrap"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "27",
+    "question": "What are semantic HTML and accessibility?",
+    "answer": "<p>Semantic HTML means using the correct HTML element for the correct purpose.<br/>Examples: <code><header></code>, <code><nav></code>, <code><main></code>, <code><section></code>, <code><article></code>, <code><button></code>, <code><form></code></p><p>Accessibility means the interface can be used by people with different abilities, devices, and assistive technologies.<br/>Important practices:<br/><ul><li>Use semantic tags.</li></ul><br/><ul><li>Add labels for inputs.</li></ul><br/><ul><li>Maintain keyboard navigation.</li></ul><br/><ul><li>Use proper contrast.</li></ul><br/><ul><li>Avoid clickable divs.</li></ul><br/><ul><li>Add alt text for meaningful images.</li></ul><br/><ul><li>Manage focus in modals.</li></ul></p><p>Tricky follow-up:<br/>Question: Why is <code><button></code> better than <code><div onClick></code>?<br/>Answer: A button has built-in keyboard behavior, focus handling, accessibility semantics, and screen-reader support. A clickable div requires all of that to be manually recreated.</p>",
+    "category": "HTML, CSS, Tailwind, MUI, Bootstrap",
+    "tags": [
+      "html",
+      "accessibility",
+      "semantic html"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "28",
+    "question": "How does Node.js handle multiple requests?",
+    "answer": "<p>Node.js uses an event-driven, non-blocking I/O model. It can handle many concurrent I/O operations without creating one thread per request.</p><p>Example:<br/>While waiting for a database query, Node.js can continue processing other requests.</p><p>Tricky follow-up:<br/>Question: What blocks Node.js?<br/>Answer:<br/><ul><li>Heavy loops</li></ul><br/><ul><li>Synchronous file operations</li></ul><br/><ul><li>CPU-heavy calculations</li></ul><br/><ul><li>Large JSON parsing</li></ul><br/><ul><li>Blocking crypto/compression work</li></ul></p><p>I would avoid blocking the event loop by using async APIs, queues, streams, worker threads, or external services.</p>",
+    "category": "Backend / Node.js / Express.js",
+    "tags": [
+      "node.js",
+      "event loop",
+      "performance"
+    ],
+    "difficulty": "hard",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "29",
+    "question": "What is middleware in Express.js?",
+    "answer": "<p>Middleware is a function that runs during the request-response cycle.</p><p>It can:<br/><ul><li>Validate requests</li></ul><br/><ul><li>Authenticate users</li></ul><br/><ul><li>Log requests</li></ul><br/><ul><li>Parse JSON</li></ul><br/><ul><li>Handle errors</li></ul><br/><ul><li>Add data to req</li></ul><br/><ul><li>Stop or pass control to the next handler</li></ul></p><p>Example:<br/><code></code>`javascript<br/>function authMiddleware(req, res, next) {<br/>  if (!req.headers.authorization) {<br/>    return res.status(401).json({ message: \"Unauthorized\" });<br/>  }<br/>  next();<br/>}<br/><code></code>`<br/>Express error-handling middleware must use four arguments: <code>(err, req, res, next)</code>.</p>",
+    "category": "Backend / Node.js / Express.js",
+    "tags": [
+      "express",
+      "node.js",
+      "middleware"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "30",
+    "question": "How do you design a clean REST API?",
+    "answer": "<p>A clean REST API should have:<br/><ul><li>Resource-based URLs</li></ul><br/><ul><li>Correct HTTP methods</li></ul><br/><ul><li>Consistent response shape</li></ul><br/><ul><li>Proper status codes</li></ul><br/><ul><li>Pagination</li></ul><br/><ul><li>Filtering</li></ul><br/><ul><li>Sorting</li></ul><br/><ul><li>Validation</li></ul><br/><ul><li>Authentication</li></ul><br/><ul><li>Authorization</li></ul><br/><ul><li>Error handling</li></ul><br/><ul><li>Versioning if needed</li></ul></p><p>Example:<br/><code>GET /api/projects</code><br/><code>POST /api/projects</code><br/><code>GET /api/projects/:id</code><br/><code>PUT /api/projects/:id</code><br/><code>DELETE /api/projects/:id</code></p><p>Good response format:<br/><code></code>`json<br/>{<br/>  \"success\": true,<br/>  \"data\": {},<br/>  \"message\": \"Project created successfully\"<br/>}<br/><code></code>`</p>",
+    "category": "Backend / Node.js / Express.js",
+    "tags": [
+      "rest",
+      "api design",
+      "backend"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "31",
+    "question": "PUT vs PATCH — what is the difference?",
+    "answer": "<p>PUT: Replace the full resource.<br/>PATCH: Partially update the resource.</p><p>Example:<br/><code>PUT /users/1</code><br/>Would replace the full user object.</p><p><code>PATCH /users/1</code><br/>Would update only selected fields, such as name or status.</p><p>Tricky follow-up:<br/>Question: What happens if a frontend sends only one field in a PUT request?<br/>Answer:<br/>If the backend treats PUT strictly, missing fields may be overwritten or removed. That is why PATCH is safer for partial updates.</p>",
+    "category": "Backend / Node.js / Express.js",
+    "tags": [
+      "rest",
+      "http methods",
+      "api design"
+    ],
+    "difficulty": "easy",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "32",
+    "question": "How do you handle API validation?",
+    "answer": "<p>I validate at multiple levels:<br/>1. Frontend validation for user experience.<br/>2. Backend validation for security and correctness.<br/>3. Database constraints for data integrity.</p><p>Example using a schema validator conceptually:<br/><code></code>`javascript<br/>const createUserSchema = {<br/>  name: \"required string\",<br/>  email: \"required valid email\",<br/>  role: \"admin | manager | viewer\"<br/>};<br/><code></code>`<br/>Important:<br/>Frontend validation is never enough because API requests can be sent directly from Postman, scripts, or malicious clients.</p>",
+    "category": "Backend / Node.js / Express.js",
+    "tags": [
+      "validation",
+      "api design",
+      "security"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "33",
+    "question": "Explain authentication vs authorization.",
+    "answer": "<p>Authentication: Who are you?<br/>Authorization: What are you allowed to do?</p><p>Example:<br/>Login with email/password is authentication.<br/>Checking whether the logged-in user can delete a project is authorization.</p>",
+    "category": "Backend / Node.js / Express.js",
+    "tags": [
+      "security",
+      "authentication",
+      "authorization"
+    ],
+    "difficulty": "easy",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "34",
+    "question": "How does JWT authentication work?",
+    "answer": "<p>JWT is a compact, self-contained way to transmit claims between parties as a JSON object, and it can be digitally signed.</p><p>Typical flow:<br/>1. User logs in.<br/>2. Server validates credentials.<br/>3. Server creates JWT.<br/>4. Client stores token securely.<br/>5. Client sends token with requests.<br/>6. Server verifies token.<br/>7. Server authorizes the request.</p><p>JWT structure: <code>header.payload.signature</code></p><p>Tricky follow-up:<br/>Question: Should you store JWT in localStorage?<br/>Answer:<br/>For sensitive applications, HTTP-only secure cookies are usually safer because localStorage is accessible to JavaScript and vulnerable to XSS. However, cookies need CSRF protection depending on the setup.</p>",
+    "category": "Backend / Node.js / Express.js",
+    "tags": [
+      "jwt",
+      "security",
+      "authentication"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "35",
+    "question": "How do you secure a Node.js API?",
+    "answer": "<p>I would use:<br/><ul><li>Input validation</li></ul><br/><ul><li>Authentication</li></ul><br/><ul><li>Authorization</li></ul><br/><ul><li>Rate limiting</li></ul><br/><ul><li>Secure headers</li></ul><br/><ul><li>CORS configuration</li></ul><br/><ul><li>Password hashing</li></ul><br/><ul><li>SQL injection prevention</li></ul><br/><ul><li>No sensitive data in logs</li></ul><br/><ul><li>Environment variables</li></ul><br/><ul><li>API error sanitization</li></ul><br/><ul><li>Audit logging</li></ul><br/><ul><li>HTTPS</li></ul><br/><ul><li>Dependency scanning</li></ul></p><p>Example:<br/>Never return raw database errors to the client. Instead return a generic message and log the detailed error internally.</p>",
+    "category": "Backend / Node.js / Express.js",
+    "tags": [
+      "node.js",
+      "security",
+      "api design"
+    ],
+    "difficulty": "hard",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "36",
+    "question": "How do you design a database schema for a SaaS app?",
+    "answer": "<p>I start with business entities and relationships.</p><p>For a project management SaaS:<br/><code>organizations</code><br/><code>users</code><br/><code>organization_members</code><br/><code>projects</code><br/><code>tasks</code><br/><code>comments</code><br/><code>attachments</code><br/><code>activity_logs</code><br/><code>subscriptions</code></p><p>Important design decisions:<br/><ul><li>Use foreign keys.</li></ul><br/><ul><li>Add indexes on frequent filters.</li></ul><br/><ul><li>Add timestamps.</li></ul><br/><ul><li>Add status fields carefully.</li></ul><br/><ul><li>Normalize transactional data.</li></ul><br/><ul><li>Consider soft delete if needed.</li></ul><br/><ul><li>Add audit logs for enterprise apps.</li></ul></p>",
+    "category": "Database / SQL / PostgreSQL / MongoDB",
+    "tags": [
+      "database",
+      "schema",
+      "saas",
+      "sql"
+    ],
+    "difficulty": "hard",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "37",
+    "question": "PostgreSQL vs MongoDB — when would you use each?",
+    "answer": "<p>PostgreSQL: Best for Relational data, transactions, reporting, complex queries.<br/>MongoDB: Best for Flexible documents, dynamic schema, nested data, event-like records.</p><p>MongoDB documentation emphasizes modeling data around application access patterns and storing data together when it is accessed together.</p><p>Example:<br/>For users, roles, subscriptions, and invoices, I prefer PostgreSQL.<br/>For dynamic form submissions or flexible CMS content, MongoDB can be useful.</p>",
+    "category": "Database / SQL / PostgreSQL / MongoDB",
+    "tags": [
+      "database",
+      "postgresql",
+      "mongodb"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "38",
+    "question": "What is normalization?",
+    "answer": "<p>Normalization means organizing database tables to reduce duplication and improve data integrity.</p><p>Example:<br/>Instead of storing customer details inside every order:<br/><code>orders</code><br/><code>- id</code><br/><code>- customer_name</code><br/><code>- customer_email</code></p><p>Create separate tables:<br/><code>customers</code><br/><code>orders</code><br/>This avoids duplicated customer data.</p><p>Tricky follow-up:<br/>Question: Is normalization always best?<br/>Answer:<br/>Not always. For analytics or read-heavy systems, some denormalization may improve performance. The decision depends on read/write patterns.</p>",
+    "category": "Database / SQL / PostgreSQL / MongoDB",
+    "tags": [
+      "database",
+      "normalization",
+      "sql"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "39",
+    "question": "What are indexes, and when can they hurt performance?",
+    "answer": "<p>Indexes help the database find rows faster, but they add overhead during writes because indexes must also be updated. PostgreSQL documentation describes indexes as a common way to enhance performance, but also warns that they add overhead and should be used sensibly.</p><p>Good index candidates:<br/><ul><li>Foreign keys</li></ul><br/><ul><li>Frequently filtered columns</li></ul><br/><ul><li>Frequently sorted columns</li></ul><br/><ul><li>Search columns</li></ul><br/><ul><li>Join columns</li></ul></p><p>Bad index candidates:<br/><ul><li>Low-cardinality columns like <code>true/false</code></li></ul><br/><ul><li>Columns rarely queried</li></ul><br/><ul><li>Tables with very heavy writes and unnecessary indexes</li></ul></p>",
+    "category": "Database / SQL / PostgreSQL / MongoDB",
+    "tags": [
+      "database",
+      "performance",
+      "indexes",
+      "sql"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "40",
+    "question": "How do you optimize a slow SQL query?",
+    "answer": "<p>My process:<br/>1. Reproduce the slow query.<br/>2. Run EXPLAIN ANALYZE.<br/>3. Check sequential scans.<br/>4. Check join strategy.<br/>5. Check missing indexes.<br/>6. Reduce selected columns.<br/>7. Add pagination.<br/>8. Avoid N+1 queries.<br/>9. Rewrite inefficient joins/subqueries.<br/>10. Check database statistics.</p><p>PostgreSQL’s EXPLAIN shows how tables are scanned and which join algorithms are used. EXPLAIN ANALYZE includes actual execution details.</p>",
+    "category": "Database / SQL / PostgreSQL / MongoDB",
+    "tags": [
+      "database",
+      "performance",
+      "sql optimization",
+      "postgresql"
+    ],
+    "difficulty": "hard",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "41",
+    "question": "What is the N+1 query problem?",
+    "answer": "<p>The N+1 problem happens when one query fetches a list, and then one additional query runs for each item.</p><p>Bad example:<br/>1 query to get projects<br/>N queries to get tasks for each project<br/>If there are 100 projects, that becomes 101 queries.</p><p>Solution:<br/><ul><li>Use joins.</li></ul><br/><ul><li>Use eager loading.</li></ul><br/><ul><li>Batch queries.</li></ul><br/><ul><li>Use aggregation.</li></ul><br/><ul><li>Fetch related data in one optimized query.</li></ul></p>",
+    "category": "Database / SQL / PostgreSQL / MongoDB",
+    "tags": [
+      "database",
+      "performance",
+      "n+1 queries"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "42",
+    "question": "How would you model roles and permissions?",
+    "answer": "<p>For simple apps:<br/><code>users</code><br/><code>roles</code><br/><code>user_roles</code><br/><code>permissions</code><br/><code>role_permissions</code></p><p>For organization-specific SaaS:<br/><code>organizations</code><br/><code>users</code><br/><code>organization_members</code><br/><code>roles</code><br/><code>permissions</code><br/><code>role_permissions</code><br/>A user can be admin in one organization and viewer in another.</p><p>Tricky follow-up:<br/>Question: Should permissions be checked in the frontend or backend?<br/>Answer:<br/>Both, but for different reasons:<br/><ul><li>Frontend check improves UX.</li></ul><br/><ul><li>Backend check provides real security.</li></ul><br/>Never rely only on frontend permission checks.</p>",
+    "category": "Database / SQL / PostgreSQL / MongoDB",
+    "tags": [
+      "database",
+      "schema",
+      "roles",
+      "permissions"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "43",
+    "question": "How do you design an analytics dashboard?",
+    "answer": "<p>I start by identifying:<br/>1. User role<br/>2. Business goal<br/>3. Key decisions the dashboard supports<br/>4. Primary KPIs<br/>5. Filters<br/>6. Data freshness needs<br/>7. Drill-down requirements<br/>8. Export/reporting needs</p><p>Example:<br/>For a sales dashboard:<br/><ul><li>Revenue</li></ul><br/><ul><li>Conversion rate</li></ul><br/><ul><li>Average order value</li></ul><br/><ul><li>Customer acquisition cost</li></ul><br/><ul><li>Top channels</li></ul><br/><ul><li>Funnel drop-off</li></ul><br/><ul><li>Monthly trend</li></ul></p><p>The dashboard should not show every metric. It should show metrics that help users make decisions.</p>",
+    "category": "Dashboard / Data Visualization / BI",
+    "tags": [
+      "dashboard",
+      "data visualization",
+      "analytics"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "44",
+    "question": "How do you prevent dashboard overload?",
+    "answer": "<p>I use information hierarchy:<br/><ul><li>Show top-level KPIs first.</li></ul><br/><ul><li>Group related metrics.</li></ul><br/><ul><li>Use progressive disclosure.</li></ul><br/><ul><li>Provide filters.</li></ul><br/><ul><li>Use drill-downs.</li></ul><br/><ul><li>Avoid too many colors.</li></ul><br/><ul><li>Avoid unnecessary charts.</li></ul><br/><ul><li>Use tables for precise comparison.</li></ul><br/><ul><li>Use charts for patterns and trends.</li></ul></p><p>Example:<br/>Instead of showing 20 cards, I would show:<br/>Revenue<br/>Conversion<br/>Active Users<br/>Churn</p><p>Then allow drill-down into details.</p>",
+    "category": "Dashboard / Data Visualization / BI",
+    "tags": [
+      "dashboard",
+      "ui/ux",
+      "information hierarchy"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "45",
+    "question": "Which chart would you use for different data types?",
+    "answer": "<p>Data Need | Chart<br/>--- | ---<br/>Trend over time | Line chart<br/>Category comparison | Bar chart<br/>Part-to-whole | Donut/pie, but limited use<br/>Distribution | Histogram<br/>Relationship | Scatter plot<br/>Ranking | Horizontal bar<br/>KPI | Metric card<br/>Detailed records | Table</p><p>Tricky follow-up:<br/>Question: Why avoid pie charts in complex dashboards?<br/>Answer:<br/>Pie charts are hard to compare when there are many segments or similar values. Bar charts are usually easier to read.</p>",
+    "category": "Dashboard / Data Visualization / BI",
+    "tags": [
+      "dashboard",
+      "charts",
+      "data visualization"
+    ],
+    "difficulty": "easy",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "46",
+    "question": "How do you improve performance in a large dashboard?",
+    "answer": "<p>I would optimize both frontend and backend:</p><p>Frontend:<br/><ul><li>Lazy load widgets.</li></ul><br/><ul><li>Virtualize large tables.</li></ul><br/><ul><li>Memoize expensive calculations.</li></ul><br/><ul><li>Split components.</li></ul><br/><ul><li>Avoid unnecessary re-renders.</li></ul><br/><ul><li>Debounce filters/search.</li></ul><br/><ul><li>Paginate data.</li></ul><br/><ul><li>Use skeleton loading.</li></ul></p><p>Backend:<br/><ul><li>Add indexes.</li></ul><br/><ul><li>Pre-aggregate metrics.</li></ul><br/><ul><li>Cache expensive reports.</li></ul><br/><ul><li>Use background jobs.</li></ul><br/><ul><li>Optimize SQL queries.</li></ul><br/><ul><li>Avoid over-fetching.</li></ul><br/><ul><li>Compress responses.</li></ul></p>",
+    "category": "Dashboard / Data Visualization / BI",
+    "tags": [
+      "dashboard",
+      "performance",
+      "optimization"
+    ],
+    "difficulty": "hard",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "47",
+    "question": "As a developer, why is UI/UX important?",
+    "answer": "<p>UI/UX helps ensure the application is usable, clear, and aligned with user goals. A technically strong application can still fail if users cannot complete tasks efficiently.</p><p>For full-stack roles, UI/UX awareness helps with:<br/><ul><li>Better component decisions</li></ul><br/><ul><li>Better form validation</li></ul><br/><ul><li>Better error messages</li></ul><br/><ul><li>Better dashboard hierarchy</li></ul><br/><ul><li>Better responsive behavior</li></ul><br/><ul><li>Better product thinking</li></ul></p>",
+    "category": "UI/UX / Product Development",
+    "tags": [
+      "ui",
+      "ux",
+      "product"
+    ],
+    "difficulty": "easy",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "48",
+    "question": "How do you convert Figma designs into production UI?",
+    "answer": "<p>My process:<br/>1. Review layout, spacing, typography, and breakpoints.<br/>2. Identify reusable components.<br/>3. Map design tokens to CSS/theme variables.<br/>4. Build base UI components.<br/>5. Implement responsive states.<br/>6. Add interactions and validations.<br/>7. Test against design.<br/>8. Review accessibility.<br/>9. Connect APIs.<br/>10. Refactor for maintainability.</p><p>Example:<br/>A Figma button system becomes:<br/><code><Button variant=\"primary\" size=\"lg\" disabled={isLoading}>Save Changes</Button></code></p>",
+    "category": "UI/UX / Product Development",
+    "tags": [
+      "figma",
+      "ui",
+      "frontend"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "49",
+    "question": "What is user-centered design from an engineering perspective?",
+    "answer": "<p>User-centered design means building the product around user goals, not only technical requirements.</p><p>As an engineer, I apply it by:<br/><ul><li>Understanding user workflows.</li></ul><br/><ul><li>Reducing unnecessary steps.</li></ul><br/><ul><li>Writing clear error messages.</li></ul><br/><ul><li>Supporting keyboard navigation.</li></ul><br/><ul><li>Designing empty states.</li></ul><br/><ul><li>Handling loading states.</li></ul><br/><ul><li>Making forms easy to complete.</li></ul><br/><ul><li>Optimizing performance.</li></ul></p><p>Example:<br/>Instead of showing <code>Error 500</code>,<br/>Show: <code>We couldn’t save your task. Please try again.</code></p>",
+    "category": "UI/UX / Product Development",
+    "tags": [
+      "ui/ux",
+      "product",
+      "design"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "50",
+    "question": "What types of testing do you use?",
+    "answer": "<p>Test Type | Purpose<br/>--- | ---<br/>Unit testing | Test small functions/components<br/>Integration testing | Test multiple modules together<br/>API testing | Test backend endpoints<br/>E2E testing | Test full user flows<br/>Regression testing | Prevent old bugs returning<br/>Manual QA | Validate real UX and edge cases</p><p>Example:<br/>For a login flow:<br/><ul><li>Unit test validation.</li></ul><br/><ul><li>API test login endpoint.</li></ul><br/><ul><li>E2E test login from browser.</li></ul><br/><ul><li>Security test invalid credentials and expired token.</li></ul></p>",
+    "category": "Testing / Debugging / Performance",
+    "tags": [
+      "testing",
+      "qa"
+    ],
+    "difficulty": "easy",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "51",
+    "question": "How do you debug a production issue?",
+    "answer": "<p>My process:<br/>1. Understand the user-reported issue.<br/>2. Check logs.<br/>3. Check recent deployments.<br/>4. Reproduce if possible.<br/>5. Identify affected users.<br/>6. Check frontend console/network.<br/>7. Check API errors.<br/>8. Check database queries.<br/>9. Roll back if critical.<br/>10. Patch, test, deploy, and monitor.</p><p>Example:<br/>If users cannot load a dashboard, I check:<br/>Browser console → API response → server logs → database query → permissions</p>",
+    "category": "Testing / Debugging / Performance",
+    "tags": [
+      "debugging",
+      "production issues"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "52",
+    "question": "How do you optimize frontend performance?",
+    "answer": "<ul><li>Code splitting</li></ul>\n<ul><li>Lazy loading</li></ul>\n<ul><li>Image optimization</li></ul>\n<ul><li>Memoization where needed</li></ul>\n<ul><li>Reduce bundle size</li></ul>\n<ul><li>Avoid unnecessary re-renders</li></ul>\n<ul><li>Use pagination/virtualization</li></ul>\n<ul><li>Debounce search</li></ul>\n<ul><li>Use CDN</li></ul>\n<ul><li>Optimize fonts</li></ul>\n<ul><li>Reduce third-party scripts</li></ul><p>Tricky follow-up:<br/>Question: How do you know what to optimize first?<br/>Answer:<br/>I profile first. I check Lighthouse, browser performance tools, bundle analyzer, network waterfall, React profiler, and real user metrics before making changes.</p>",
+    "category": "Testing / Debugging / Performance",
+    "tags": [
+      "frontend",
+      "performance",
+      "optimization"
+    ],
+    "difficulty": "hard",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "53",
+    "question": "How do you optimize backend performance?",
+    "answer": "<ul><li>Optimize database queries.</li></ul>\n<ul><li>Add proper indexes.</li></ul>\n<ul><li>Use caching.</li></ul>\n<ul><li>Avoid N+1 queries.</li></ul>\n<ul><li>Use pagination.</li></ul>\n<ul><li>Reduce payload size.</li></ul>\n<ul><li>Use async operations.</li></ul>\n<ul><li>Move heavy tasks to background jobs.</li></ul>\n<ul><li>Add rate limiting.</li></ul>\n<ul><li>Use horizontal scaling when needed.</li></ul>",
+    "category": "Testing / Debugging / Performance",
+    "tags": [
+      "backend",
+      "performance",
+      "optimization"
+    ],
+    "difficulty": "hard",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "54",
+    "question": "What is your Git workflow?",
+    "answer": "<p>A standard workflow:<br/><code>main</code><br/><code>develop</code><br/><code>feature/*</code><br/><code>bugfix/*</code><br/><code>hotfix/*</code></p><p>Process:<br/>1. Create feature branch.<br/>2. Commit small logical changes.<br/>3. Open pull request.<br/>4. Run tests/linting.<br/>5. Code review.<br/>6. Merge after approval.<br/>7. Deploy through CI/CD.</p>",
+    "category": "Git / Agile / Code Review / Clean Code",
+    "tags": [
+      "git",
+      "workflow"
+    ],
+    "difficulty": "easy",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "55",
+    "question": "What do you look for in code review?",
+    "answer": "<ul><li>Correctness</li></ul>\n<ul><li>Security issues</li></ul>\n<ul><li>Readability</li></ul>\n<ul><li>Naming</li></ul>\n<ul><li>Reusability</li></ul>\n<ul><li>Performance</li></ul>\n<ul><li>Edge cases</li></ul>\n<ul><li>Error handling</li></ul>\n<ul><li>Test coverage</li></ul>\n<ul><li>API contract consistency</li></ul>\n<ul><li>Type safety</li></ul>\n<ul><li>Maintainability</li></ul><p>Example comment:<br/>Instead of saying “bad code,” I would say:<br/><code>This works, but we can move this validation into a shared utility because the same rule is used in the create and update flows.</code></p>",
+    "category": "Git / Agile / Code Review / Clean Code",
+    "tags": [
+      "code review",
+      "quality"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "56",
+    "question": "What is clean code?",
+    "answer": "<p>Clean code is code that is easy to read, change, test, and maintain.</p><p>Clean code has:<br/><ul><li>Clear names</li></ul><br/><ul><li>Small functions</li></ul><br/><ul><li>Single responsibility</li></ul><br/><ul><li>Consistent formatting</li></ul><br/><ul><li>Low duplication</li></ul><br/><ul><li>Clear error handling</li></ul><br/><ul><li>Minimal unnecessary abstraction</li></ul></p><p>Tricky follow-up:<br/>Question: Can clean code be over-engineered?<br/>Answer:<br/>Yes. Too many abstractions, premature design patterns, and unnecessary layers can make code harder to understand. Clean code should be simple, not clever.</p>",
+    "category": "Git / Agile / Code Review / Clean Code",
+    "tags": [
+      "clean code",
+      "best practices"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "57",
+    "question": "How do you work in Agile?",
+    "answer": "<p>I work in Agile by breaking features into small deliverables:<br/><ul><li>Understand requirement/user story.</li></ul><br/><ul><li>Clarify acceptance criteria.</li></ul><br/><ul><li>Estimate effort.</li></ul><br/><ul><li>Build iteratively.</li></ul><br/><ul><li>Share progress.</li></ul><br/><ul><li>Get feedback.</li></ul><br/><ul><li>Test and refine.</li></ul><br/><ul><li>Deliver incrementally.</li></ul></p><p>Example:<br/>For a dashboard filter feature:<br/>Story: As a manager, I want to filter reports by date range so I can analyze monthly performance.<br/>Acceptance criteria:<br/><ul><li>User can select date range.</li></ul><br/><ul><li>Data updates correctly.</li></ul><br/><ul><li>Empty state appears if no data.</li></ul><br/><ul><li>Filter state persists on refresh.</li></ul></p>",
+    "category": "Git / Agile / Code Review / Clean Code",
+    "tags": [
+      "agile",
+      "workflow"
+    ],
+    "difficulty": "easy",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "58",
+    "question": "Why use Docker?",
+    "answer": "<p>Docker packages an application with its dependencies so it can run consistently across environments.</p><p>Benefits:<br/><ul><li>Consistent local/dev/prod setup</li></ul><br/><ul><li>Easier deployment</li></ul><br/><ul><li>Isolated services</li></ul><br/><ul><li>Reproducible builds</li></ul><br/><ul><li>Better onboarding</li></ul><br/><ul><li>Works well with CI/CD</li></ul></p>",
+    "category": "Docker / AWS / CI/CD / Deployment",
+    "tags": [
+      "docker",
+      "devops"
+    ],
+    "difficulty": "easy",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "59",
+    "question": "What is a multi-stage Docker build?",
+    "answer": "<p>A multi-stage Docker build separates the build environment from the runtime environment. Docker documentation recommends multi-stage builds because they reduce final image size and keep only what is needed to run the application.</p><p>Example:<br/><code></code>`dockerfile<br/>FROM node:20 AS builder<br/>WORKDIR /app<br/>COPY package*.json ./<br/>RUN npm install<br/>COPY . .<br/>RUN npm run build</p><p>FROM node:20-alpine AS runner<br/>WORKDIR /app<br/>COPY --from=builder /app/dist ./dist<br/>CMD [\"node\", \"dist/server.js\"]<br/><code></code>`</p>",
+    "category": "Docker / AWS / CI/CD / Deployment",
+    "tags": [
+      "docker",
+      "devops",
+      "multi-stage"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "60",
+    "question": "What is CI/CD?",
+    "answer": "<p>Term | Meaning<br/>--- | ---<br/>CI | Continuously integrate code with automated checks<br/>CD | Continuously deploy or deliver approved code</p><p>A typical pipeline includes:<br/>Install dependencies<br/>Run lint<br/>Run tests<br/>Build project<br/>Build Docker image<br/>Deploy<br/>Run health check</p>",
+    "category": "Docker / AWS / CI/CD / Deployment",
+    "tags": [
+      "ci/cd",
+      "devops"
+    ],
+    "difficulty": "easy",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "61",
+    "question": "What AWS concepts should a full-stack developer understand?",
+    "answer": "<p>A full-stack developer should understand:<br/><ul><li>EC2</li></ul><br/><ul><li>S3</li></ul><br/><ul><li>RDS</li></ul><br/><ul><li>CloudFront</li></ul><br/><ul><li>Route 53</li></ul><br/><ul><li>IAM</li></ul><br/><ul><li>Load balancers</li></ul><br/><ul><li>Security groups</li></ul><br/><ul><li>CloudWatch</li></ul><br/><ul><li>Backups</li></ul><br/><ul><li>Deployment basics</li></ul></p><p>AWS Well-Architected Framework is based on six pillars: operational excellence, security, reliability, performance efficiency, cost optimization, and sustainability.</p>",
+    "category": "Docker / AWS / CI/CD / Deployment",
+    "tags": [
+      "aws",
+      "cloud",
+      "devops"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "62",
+    "question": "What is Strapi, and where would you use it?",
+    "answer": "<p>Strapi is a headless CMS. I would use it when non-technical users need to manage content while the frontend remains custom.</p><p>Use cases:<br/><ul><li>Marketing pages</li></ul><br/><ul><li>Blogs</li></ul><br/><ul><li>Case studies</li></ul><br/><ul><li>CMS-driven landing pages</li></ul><br/><ul><li>Product content</li></ul><br/><ul><li>Multi-language content</li></ul></p><p>Strapi automatically creates REST API endpoints when content types are created.</p>",
+    "category": "Strapi CMS / API Integration",
+    "tags": [
+      "strapi",
+      "cms",
+      "api integration"
+    ],
+    "difficulty": "easy",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "63",
+    "question": "How do you integrate a third-party API?",
+    "answer": "<p>My process:<br/>1. Read API documentation.<br/>2. Understand authentication.<br/>3. Create service layer.<br/>4. Validate request/response.<br/>5. Handle errors.<br/>6. Add retries if needed.<br/>7. Add rate-limit handling.<br/>8. Secure API keys.<br/>9. Log failures.<br/>10. Write tests.</p><p>Example:<br/><code></code>`javascript<br/>async function getCustomer(id: string) {<br/>  const response = await fetch(<code>${API_URL}/customers/${id}</code>, {<br/>    headers: {<br/>      Authorization: <code>Bearer ${process.env.API_TOKEN}</code><br/>    }<br/>  });<br/>  if (!response.ok) {<br/>    throw new Error(\"Failed to fetch customer\");<br/>  }<br/>  return response.json();<br/>}<br/><code></code>`</p>",
+    "category": "Strapi CMS / API Integration",
+    "tags": [
+      "api integration",
+      "third-party",
+      "backend"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "64",
+    "question": "Why are data structures important in full-stack development?",
+    "answer": "<p>Data structures help solve performance and organization problems.</p><p>Examples:<br/>Data Structure | Use Case<br/>--- | ---<br/>Array | Lists, tables<br/>Object/Map | Fast lookup<br/>Set | Unique values<br/>Queue | Background jobs<br/>Stack | Undo/redo, navigation<br/>Tree | Menus, org charts<br/>Graph | Relationships, dependencies</p>",
+    "category": "Data Structures & Algorithms",
+    "tags": [
+      "data structures",
+      "performance"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "65",
+    "question": "How would you remove duplicates from an array?",
+    "answer": "<p>Answer:<br/><code>const uniqueIds = [...new Set(ids)];</code></p><p>For objects:<br/><code></code>`javascript<br/>const uniqueUsers = Array.from(<br/>  new Map(users.map(user => [user.id, user])).values()<br/>);<br/><code></code>`</p><p>Tricky follow-up:<br/>Question: Why not use filter for everything?<br/>Answer:<br/>filter can become O(n²) if it repeatedly searches the array. Map or Set gives better lookup performance.</p>",
+    "category": "Data Structures & Algorithms",
+    "tags": [
+      "data structures",
+      "javascript"
+    ],
+    "difficulty": "easy",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "66",
+    "question": "Explain time complexity with an example.",
+    "answer": "<p>Time complexity describes how algorithm performance grows as input size increases.</p><p>Example:<br/><code>users.find(user => user.id === id);</code><br/>This is O(n), because it may scan the full array.</p><p>Using a Map:<br/><code>const userMap = new Map(users.map(user => [user.id, user]));</code><br/><code>userMap.get(id);</code><br/>Lookup becomes approximately O(1).</p>",
+    "category": "Data Structures & Algorithms",
+    "tags": [
+      "data structures",
+      "time complexity",
+      "big-o"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "67",
+    "question": "A dashboard page is slow. How do you investigate?",
+    "answer": "<p>I check the full stack:<br/>1. Browser network tab.<br/>2. API response time.<br/>3. Payload size.<br/>4. React rendering cost.<br/>5. Database query time.<br/>6. Missing indexes.<br/>7. Repeated API calls.<br/>8. N+1 queries.<br/>9. Caching strategy.<br/>10. Large table rendering.</p><p>Example fix plan:<br/>Add pagination<br/>Add database indexes<br/>Use React Query caching<br/>Virtualize table rows<br/>Reduce API payload<br/>Pre-aggregate dashboard metrics</p>",
+    "category": "Advanced Scenario-Based Questions",
+    "tags": [
+      "performance",
+      "dashboard",
+      "debugging"
+    ],
+    "difficulty": "hard",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "68",
+    "question": "A user says data is visible that they should not see. What do you check?",
+    "answer": "<p>1. Backend authorization logic.<br/>2. Tenant filtering.<br/>3. Role-permission mapping.<br/>4. API response payload.<br/>5. Frontend conditional rendering.<br/>6. Cached data.<br/>7. Database query conditions.<br/>8. Audit logs.</p><p>Important:<br/>This is a security issue. I would not treat it as a simple UI bug.</p>",
+    "category": "Advanced Scenario-Based Questions",
+    "tags": [
+      "security",
+      "authorization",
+      "debugging"
+    ],
+    "difficulty": "hard",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "69",
+    "question": "How would you build a role-based analytics dashboard?",
+    "answer": "<p>I would design:</p><p>Frontend:<br/><ul><li>Role-based navigation.</li></ul><br/><ul><li>Permission-based components.</li></ul><br/><ul><li>Dynamic dashboard widgets.</li></ul><br/><ul><li>Protected routes.</li></ul><br/><ul><li>Loading/empty/error states.</li></ul></p><p>Backend:<br/><ul><li>Auth middleware.</li></ul><br/><ul><li>Permission middleware.</li></ul><br/><ul><li>Tenant-aware queries.</li></ul><br/><ul><li>Audit logs.</li></ul><br/><ul><li>Aggregated metrics APIs.</li></ul></p><p>Database:<br/><code>users</code>, <code>roles</code>, <code>permissions</code>, <code>role_permissions</code>, <code>dashboard_widgets</code>, <code>user_dashboard_preferences</code>, <code>analytics_events</code></p>",
+    "category": "Advanced Scenario-Based Questions",
+    "tags": [
+      "architecture",
+      "roles",
+      "dashboard"
+    ],
+    "difficulty": "hard",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "70",
+    "question": "How would you explain your full-stack project experience in an interview?",
+    "answer": "<p>A strong answer:<br/>I have worked on full-stack web applications where I handled frontend UI, API integration, backend logic, database design, and deployment support. My main strength is building React/Next.js interfaces connected with Node.js APIs and relational databases like PostgreSQL. I have also worked on dashboard-style applications where performance, data structure, role-based access, and clean UI are important. I usually think end-to-end: how the user interacts with the interface, how the API should be structured, how data should be stored, and how the application can scale.</p>",
+    "category": "Advanced Scenario-Based Questions",
+    "tags": [
+      "interview",
+      "experience",
+      "general"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "71",
+    "question": "Why should you not trust frontend validation?",
+    "answer": "<p>Because users can bypass the frontend using browser dev tools, Postman, scripts, or direct API calls. Backend validation is mandatory.</p>",
+    "category": "Tricky Rapid-Fire Questions",
+    "tags": [
+      "security",
+      "validation",
+      "frontend"
+    ],
+    "difficulty": "easy",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "72",
+    "question": "Why can too many indexes be bad?",
+    "answer": "<p>Indexes improve reads but slow writes because every insert/update/delete may also update indexes.</p>",
+    "category": "Tricky Rapid-Fire Questions",
+    "tags": [
+      "database",
+      "performance",
+      "indexes"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "73",
+    "question": "Why is SELECT * bad in APIs?",
+    "answer": "<p>It may return unnecessary columns, increase payload size, expose sensitive data, and reduce performance.</p>",
+    "category": "Tricky Rapid-Fire Questions",
+    "tags": [
+      "database",
+      "performance",
+      "sql"
+    ],
+    "difficulty": "easy",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "74",
+    "question": "Why should passwords never be stored as plain text?",
+    "answer": "<p>If the database is compromised, plain-text passwords expose user accounts immediately. Passwords should be hashed with a secure algorithm and salt.</p>",
+    "category": "Tricky Rapid-Fire Questions",
+    "tags": [
+      "security",
+      "database",
+      "passwords"
+    ],
+    "difficulty": "easy",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "75",
+    "question": "What is the difference between latency and throughput?",
+    "answer": "<p>Latency: Time taken for one request.<br/>Throughput: Number of requests handled over time.</p><p>A system can have high throughput but still poor latency for individual users.</p>",
+    "category": "Tricky Rapid-Fire Questions",
+    "tags": [
+      "performance",
+      "networking",
+      "backend"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "76",
+    "question": "What is idempotency?",
+    "answer": "<p>Idempotency means repeating the same request produces the same result.</p><p>Example:<br/><code>PUT /users/1</code><br/>Calling it multiple times with the same payload should result in the same final user state. This matters for payment APIs, retries, and distributed systems.</p>",
+    "category": "Tricky Rapid-Fire Questions",
+    "tags": [
+      "api design",
+      "rest",
+      "idempotency"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "77",
+    "question": "What is rate limiting?",
+    "answer": "<p>Rate limiting restricts how many requests a user/IP/client can make in a time window.</p><p>It protects against:<br/><ul><li>Brute-force attacks</li></ul><br/><ul><li>API abuse</li></ul><br/><ul><li>DDoS-like traffic</li></ul><br/><ul><li>Accidental overload</li></ul></p>",
+    "category": "Tricky Rapid-Fire Questions",
+    "tags": [
+      "security",
+      "api design",
+      "rate limiting"
+    ],
+    "difficulty": "easy",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "78",
+    "question": "What is debouncing?",
+    "answer": "<p>Debouncing delays execution until the user stops triggering an event.</p><p>Example:<br/>Search input should not call the API on every keystroke. It should wait 300–500ms after the user stops typing.</p>",
+    "category": "Tricky Rapid-Fire Questions",
+    "tags": [
+      "frontend",
+      "javascript",
+      "performance"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "79",
+    "question": "What is throttling?",
+    "answer": "<p>Throttling ensures a function runs at most once in a fixed interval.</p><p>Example:<br/>For scroll tracking, run the handler once every 200ms instead of on every scroll event.</p>",
+    "category": "Tricky Rapid-Fire Questions",
+    "tags": [
+      "frontend",
+      "javascript",
+      "performance"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
+  },
+  {
+    "id": "80",
+    "question": "What is the difference between server-side rendering and client-side rendering?",
+    "answer": "<p>SSR: HTML generated on server. Best For: SEO, faster first content.<br/>CSR: UI generated in browser. Best For: Interactive dashboards.<br/>SSG: Static HTML generated at build time. Best For: Blogs, marketing pages.<br/>ISR/Revalidation: Static page updated periodically/on demand. Best For: Product pages, semi-dynamic content.</p>",
+    "category": "Tricky Rapid-Fire Questions",
+    "tags": [
+      "rendering",
+      "ssr",
+      "csr",
+      "react",
+      "next.js"
+    ],
+    "difficulty": "medium",
+    "isFavorite": false,
+    "createdAt": "2024-06-18T00:00:00Z",
+    "updatedAt": "2024-06-18T00:00:00Z"
   }
 ]

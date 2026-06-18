@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { RichTextEditor } from '@/components/ui/rich-text-editor';
 import { Badge } from '@/components/ui/badge';
 import {
   Select,
@@ -146,13 +147,11 @@ export default function NewQuestionPage() {
             </div>
           </CardHeader>
           <CardContent className="pt-0">
-            <Textarea
-              placeholder="Write or paste your answer here, or use AI Generate..."
+            <RichTextEditor
               value={form.answer}
-              onChange={(e) => setForm((f) => ({ ...f, answer: e.target.value }))}
-              rows={8}
-              className="bg-secondary/50 border-border/50 resize-none"
-              required
+              onChange={(val) => setForm((f) => ({ ...f, answer: val }))}
+              placeholder="Write or paste your answer here, or use AI Generate..."
+              className="bg-secondary/50 border border-border/50 rounded-md overflow-hidden"
             />
           </CardContent>
         </Card>

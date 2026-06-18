@@ -56,6 +56,14 @@ function getDifficultyColor(d: string) {
   return 'bg-red-500/20 text-red-400 border-red-500/30';
 }
 
+function stripHtml(html: string) {
+  if (!html) return '';
+  let text = html.replace(/<\/(p|div|h[1-6]|li|ul|ol|table|tr|blockquote)>/gi, ' ');
+  text = text.replace(/<(br|hr)[^>]*>/gi, ' ');
+  text = text.replace(/<[^>]+>/g, '');
+  return text.replace(/\s+/g, ' ').trim();
+}
+
 const FONT_SIZES = [
   { label: 'S', questionSize: 'text-sm', answerSize: 'text-xs' },
   { label: 'M', questionSize: 'text-base', answerSize: 'text-sm' },
@@ -413,103 +421,110 @@ function QuestionsContent() {
             return (
               <div
                 key={q.id}
-                className="group rounded-2xl border border-border/50 bg-card/80 backdrop-blur-sm hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 transition-all duration-200 animate-fade-in overflow-hidden"
+                className="group relative rounded-2xl border border-border/40 bg-card/40 hover:bg-card/60 backdrop-blur-md hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 animate-fade-in overflow-hidden flex flex-col"
                 style={{ animationDelay: `${i * 30}ms` }}
               >
-                {/* Colored left accent bar */}
-                <div className="flex">
-                  <div className={`w-1 shrink-0 ${
-                    q.difficulty === 'easy' ? 'bg-emerald-500' :
-                    q.difficulty === 'medium' ? 'bg-amber-500' : 'bg-red-500'
-                  }`} />
-                  <div className="flex-1 p-4 sm:p-5">
-                    {/* Question */}
-                    <p className={`font-semibold leading-snug text-foreground mb-2 ${fs.questionSize}`}>
-                      {q.question}
-                    </p>
+                {/* Top Difficulty Accent */}
+                <div className={`h-1 w-full absolute top-0 left-0 transition-opacity opacity-50 group-hover:opacity-100 ${
+                  q.difficulty === 'easy' ? 'bg-gradient-to-r from-emerald-500/80 to-transparent' :
+                  q.difficulty === 'medium' ? 'bg-gradient-to-r from-amber-500/80 to-transparent' : 'bg-gradient-to-r from-red-500/80 to-transparent'
+                }`} />
 
-                    {/* Answer preview */}
-                    <p className={`text-muted-foreground leading-relaxed line-clamp-3 mb-3 ${fs.answerSize}`}>
-                      {q.answer}
-                    </p>
-
-                    {/* Tags row + Actions */}
-                    <div className="flex items-center justify-between gap-3 flex-wrap">
-                      {/* Badges */}
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <Badge variant="outline" className="text-xs border-primary/40 text-primary font-medium">
+                <div className="flex-1 p-5 sm:p-6 flex flex-col">
+                  {/* Header row: Categories & Difficulty */}
+                  <div className="flex items-center justify-between gap-3 mb-4">
+                     <div className="flex items-center gap-2 flex-wrap">
+                        <Badge variant="outline" className="text-[10px] sm:text-xs uppercase tracking-wider font-semibold border-primary/30 text-primary bg-primary/5">
                           {q.category}
                         </Badge>
-                        <span className={`text-xs px-2.5 py-0.5 rounded-full border font-medium ${getDifficultyColor(q.difficulty)}`}>
+                        <span className={`text-[10px] sm:text-xs px-2.5 py-0.5 rounded-full border font-semibold tracking-wide uppercase ${getDifficultyColor(q.difficulty)}`}>
                           {q.difficulty}
                         </span>
-                        {q.tags.map((tag) => (
-                          <Badge key={tag} variant="secondary" className="text-xs opacity-80">
-                            #{tag}
-                          </Badge>
-                        ))}
-                      </div>
-
-                      {/* Action Buttons */}
-                      <div className="flex items-center gap-0.5 shrink-0">
-                        {/* Favorite */}
+                     </div>
+                     
+                     <div className="flex items-center gap-1 shrink-0">
+                        {/* Action buttons */}
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="h-9 w-9 rounded-xl hover:bg-yellow-400/10"
+                          className="h-8 w-8 rounded-full hover:bg-yellow-400/10"
                           onClick={(e) => handleToggleFavorite(q, e)}
                           title="Favorite"
                         >
-                          <Star className={`w-4 h-4 transition-colors ${q.isFavorite ? 'fill-yellow-400 text-yellow-400' : 'text-muted-foreground'}`} />
+                          <Star className={`w-3.5 h-3.5 transition-colors ${q.isFavorite ? 'fill-yellow-400 text-yellow-400' : 'text-muted-foreground'}`} />
                         </Button>
-
-                        {/* Speaker / TTS */}
                         <Button
                           variant="ghost"
                           size="icon"
-                          className={`h-9 w-9 rounded-xl transition-colors ${isPlaying ? 'bg-primary/20 hover:bg-primary/30' : 'hover:bg-primary/10'}`}
+                          className={`h-8 w-8 rounded-full transition-colors ${isPlaying ? 'bg-primary/20 hover:bg-primary/30' : 'hover:bg-primary/10'}`}
                           onClick={(e) => handleSpeak(q, e)}
-                          title={isPlaying ? 'Stop reading' : 'Read aloud (Q + A)'}
+                          title={isPlaying ? 'Stop reading' : 'Read aloud'}
                         >
                           {isPlaying ? (
-                            <VolumeX className="w-4 h-4 text-primary animate-pulse" />
+                            <VolumeX className="w-3.5 h-3.5 text-primary animate-pulse" />
                           ) : (
-                            <Volume2 className="w-4 h-4 text-muted-foreground hover:text-primary" />
+                            <Volume2 className="w-3.5 h-3.5 text-muted-foreground" />
                           )}
                         </Button>
+                     </div>
+                  </div>
 
-                        {/* View */}
-                        <Link href={`/questions/${q.id}`}>
-                          <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-blue-500/10" title="View">
-                            <Eye className="w-4 h-4 text-muted-foreground hover:text-blue-400 transition-colors" />
-                          </Button>
-                        </Link>
+                  {/* Question */}
+                  <Link href={`/questions/${q.id}`} className="block mb-2 group-hover:text-primary transition-colors">
+                    <h3 className={`font-bold leading-snug text-foreground ${fs.questionSize}`}>
+                      {q.question}
+                    </h3>
+                  </Link>
 
-                        {/* Edit */}
-                        <Link href={`/questions/${q.id}/edit`}>
-                          <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-primary/10" title="Edit">
-                            <Pencil className="w-4 h-4 text-muted-foreground hover:text-primary transition-colors" />
-                          </Button>
-                        </Link>
+                  {/* Answer full view */}
+                  <div className="mb-4 flex-1 overflow-hidden relative">
+                    <div className="max-h-[250px] sm:max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                      <div
+                        className={`prose dark:prose-invert max-w-none answer-prose text-muted-foreground/90 ${
+                          fs.answerSize === 'text-xs' || fs.answerSize === 'text-sm' ? 'prose-sm' : 'prose-base'
+                        }`}
+                        dangerouslySetInnerHTML={{ __html: q.answer }}
+                      />
+                    </div>
+                  </div>
 
-                        {/* Delete */}
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="h-9 w-9 rounded-xl hover:bg-destructive/10"
-                          onClick={() => setDeleteId(q.id)}
-                          title="Delete"
-                        >
-                          <Trash2 className="w-4 h-4 text-muted-foreground hover:text-destructive transition-colors" />
+                  {/* Footer: Tags and Edit/Delete/View */}
+                  <div className="flex items-end justify-between gap-3 mt-auto pt-4 border-t border-border/30">
+                    <div className="flex flex-wrap gap-1.5 flex-1">
+                      {q.tags.map((tag) => (
+                        <span key={tag} className="text-[10px] sm:text-xs text-muted-foreground/70 bg-secondary/50 px-2 py-1 rounded-md">
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="flex items-center gap-1 shrink-0">
+                      <Link href={`/questions/${q.id}`}>
+                        <Button variant="ghost" size="sm" className="h-8 text-xs gap-1.5 text-muted-foreground hover:text-blue-400 rounded-lg">
+                          <Eye className="w-3.5 h-3.5" /> <span className="hidden sm:inline">View</span>
                         </Button>
-                      </div>
+                      </Link>
+                      <Link href={`/questions/${q.id}/edit`}>
+                        <Button variant="ghost" size="sm" className="h-8 text-xs gap-1.5 text-muted-foreground hover:text-primary rounded-lg">
+                          <Pencil className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Edit</span>
+                        </Button>
+                      </Link>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 rounded-lg hover:bg-destructive/10 text-muted-foreground hover:text-destructive"
+                        onClick={() => setDeleteId(q.id)}
+                        title="Delete"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </Button>
                     </div>
                   </div>
                 </div>
 
                 {/* Playing indicator bar */}
                 {isPlaying && (
-                  <div className="h-0.5 bg-gradient-to-r from-primary via-purple-400 to-primary bg-[length:200%_100%] animate-pulse" />
+                  <div className="h-0.5 w-full bg-gradient-to-r from-primary via-purple-400 to-primary bg-[length:200%_100%] animate-pulse absolute bottom-0 left-0" />
                 )}
               </div>
             );
